@@ -1,29 +1,32 @@
 import "./App.css";
 
 function App() {
-
-  const handleAddUser=(e)=>{
+  const handleAddUser = (e) => {
     e.preventDefault();
-
+     
     const form = new FormData(e.target);
-    const name = form.get('name');
-    const email = form.get('email');
+    const name = form.get("name");
+    const email = form.get("email");
 
-    const user = {name, email};
+    const user = { name, email };
 
-    console.log(user)
-    fetch('http://localhost:3000/users',{
-      method:"POST",
-      headers:{
-        'Content-Type':'application/json',
+    console.log(user);
+    fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(user),
     })
-    .then(res => res.json())
-    .then(data => console.log(data))
-    
-
-  }
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if (data.insertedId) {
+          alert("Successful");
+          e.target.reset();
+        }
+      });
+  };
 
   return (
     <>
