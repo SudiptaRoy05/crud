@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 export default function Users() {
   const usersData = useLoaderData();
@@ -19,7 +19,6 @@ export default function Users() {
           const remainingUsers = showUsers.filter((user) => user._id !== id);
           setUsers(remainingUsers);
         }
-        
       });
   };
 
@@ -32,7 +31,11 @@ export default function Users() {
             {user.name}
             {" : "}
             {user.email}
-            {" : "} <button onClick={() => handleDelete(user._id)}>X</button>
+            {" : "}
+            <Link to={`/update/:${user._id}`}>
+              <button>Update</button>
+            </Link>
+            <button onClick={() => handleDelete(user._id)}>X</button>
           </div>
         ))}
       </div>
